@@ -1,0 +1,11 @@
+<div class="activity {{ action.verb }}">
+    <a href="{{ activity_stream_get_absolute_url(action.actor) }}">{{ action.actor }}</a>
+    {{ action.verb }}
+    {% if action.hasTarget %}
+        <a href="{{ activity_stream_get_absolute_url(action.target) }}">{{ action.target }}</a>
+    {% endif %}
+    {% if action.hasActionObject %}
+        <a href="{{ activity_stream_get_absolute_url(action.actionObject) }}">{{ action.actionObject }}</a>
+    {% endif %}
+    {{ action.createdAt|date }}
+</div>
