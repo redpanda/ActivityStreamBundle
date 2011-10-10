@@ -12,5 +12,15 @@ namespace Redpanda\Bundle\ActivityStreamBundle\Streamable;
  */
 interface StreamableInterface 
 {
-
+    /**
+     * Return an array for the form
+     *
+     * array(
+     *   'route' => $routeName,
+     *   'parameters' => array(key => value, ...)
+     * )
+     *
+     * @return array
+     */
+    public function getAbsolutePathParams();
 }

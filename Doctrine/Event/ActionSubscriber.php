@@ -21,6 +21,20 @@ class ActionSubscriber
             $targetReflProp->setValue(
                 $action, $em->getReference($action->getTargetType(), $action->getTargetId())
             );
+
+            $actorReflProp = $metadata->reflClass->getProperty('actor');
+            $actorReflProp->setAccessible(true);
+            $actorReflProp->setValue(
+                $action, $em->getReference($action->getActorType(), $action->getActorId())
+            );
+
+            if (null !== $action->getActionObjectType()) {
+                $actionObjReflProp = $metadata->reflClass->getProperty('actionObject');
+                $actionObjReflProp->setAccessible(true);
+                $actionObjReflProp->setValue(
+                    $action, $em->getReference($action->getActionObjectType(), $action->getActionObjectId())
+                );
+            }
         }
     }
 }

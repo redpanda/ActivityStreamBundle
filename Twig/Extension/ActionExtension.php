@@ -2,7 +2,7 @@
 namespace Redpanda\Bundle\ActivityStreamBundle\Twig\Extension;
 
 use Redpanda\Bundle\ActivityStreamBundle\Model\ActionInterface;
-
+use Redpanda\Bundle\ActivityStreamBundle\Streamable\StreamableInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ActionExtension extends \Twig_Extension
@@ -34,7 +34,7 @@ class ActionExtension extends \Twig_Extension
     public function renderAction(ActionInterface $action, $template = null)
     {
         if (null === $template) {
-            $template = 'ActivityStream:Action:action.html.twig';
+            $template = 'RedpandaActivityStreamBundle:Action:action.html.twig';
         }
         
         return trim($this->container->get('templating')->render($template, array('action' => $action)));
@@ -42,14 +42,17 @@ class ActionExtension extends \Twig_Extension
     
     public function renderUrl($obj)
     {
-        $routeParams = $obj->getAbsolutePathParams();
+        if ($obj instanceof StreamableInterface) {
 
-        if(!is_array($routeParams)) {
-            throw new \LogicException('The method %s must return an array');
-        }
+            $routeParams = $obj->getAbsolutePathParams();
 
-        if(isset($routeParams['route']) && isset($routeParams['parameters'])) {
-            return $this->container->get('router')->generate($routeParams['route'], $routeParams['parameters']);
+            if (!is_array($routeParams)) {
+                throw new \LogicException('The method %s must return an array');
+            }
+
+            if (isset($routeParams['route']) && isset($routeParams['parameters'])) {
+                return $this->container->get('router')->generate($routeParams['route'], $routeParams['parameters']);
+            }
         }
     }
 
