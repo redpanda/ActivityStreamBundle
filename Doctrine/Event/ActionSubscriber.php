@@ -1,7 +1,7 @@
 <?php
-namespace Bundle\ActivityStreamBundle\Doctrine\Event;
+namespace Redpanda\Bundle\ActivityStreamBundle\Doctrine\Event;
 
-use Bundle\ActivityStreamBundle\Model\ActionManagerInterface;
+use Redpanda\Bundle\ActivityStreamBundle\Model\ActionManagerInterface;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -24,7 +24,7 @@ class ActionSubscriber
         $em = $eventArgs->getEntityManager();
         $metadata = $em->getClassMetadata($className);
 
-        if ($metadata->reflClass->implementsInterface('Bundle\ActivityStreamBundle\Model\ActionInterface')) {
+        if ($metadata->reflClass->implementsInterface('Redpanda\Bundle\ActivityStreamBundle\Model\ActionInterface')) {
             $targetReflProp = $metadata->reflClass->getProperty('target');
             $targetReflProp->setAccessible(true);
             $targetReflProp->setValue(

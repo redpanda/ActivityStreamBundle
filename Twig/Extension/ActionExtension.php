@@ -1,7 +1,7 @@
 <?php
-namespace Bundle\ActivityStreamBundle\Twig\Extension;
+namespace Redpanda\Bundle\ActivityStreamBundle\Twig\Extension;
 
-use Bundle\ActivityStreamBundle\Model\ActionInterface;
+use Redpanda\Bundle\ActivityStreamBundle\Model\ActionInterface;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

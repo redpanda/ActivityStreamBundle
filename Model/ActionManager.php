@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ActivityStreamBundle\Model;
+namespace Redpanda\Bundle\ActivityStreamBundle\Model;
 
-use Bundle\ActivityStreamBundle\Streamable\Streamable;
+use Bundle\ActivityStreamBundle\Streamable\StreamableInterface;
 
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -44,7 +44,7 @@ abstract class ActionManager implements ActionManagerInterface
         ));
     }
     
-    public function send($verb, Streamable $target = null, $actionObject = null)
+    public function send($verb, StreamableInterface $target = null, $actionObject = null)
     {
         $class = $this->getClass();
         $action = new $class();

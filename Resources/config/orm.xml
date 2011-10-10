@@ -18,7 +18,7 @@
         </service>
         
         <service id="activity_stream.doctrine.action_subscriber" class="%activity_stream.doctrine.action_subscriber.class%">
-            <tag name="doctrine.common.event_listener" />
+            <tag name="doctrine.event_listener" event="postLoad" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument type="service" id="activity_stream.action_manager" />
         </service>
