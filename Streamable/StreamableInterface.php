@@ -23,4 +23,9 @@ interface StreamableInterface
      * @return array
      */
     public function getAbsolutePathParams();
+
+    /**
+     * @return integer
+     */
+    public function getId();
 }
