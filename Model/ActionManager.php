@@ -2,7 +2,7 @@
 
 namespace Redpanda\Bundle\ActivityStreamBundle\Model;
 
-use Bundle\ActivityStreamBundle\Streamable\StreamableInterface;
+use Redpanda\Bundle\ActivityStreamBundle\Streamable\StreamableInterface;
 
 use Symfony\Component\Security\Core\SecurityContext;
 

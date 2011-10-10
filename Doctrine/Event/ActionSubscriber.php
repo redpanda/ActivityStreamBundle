@@ -8,15 +8,6 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class ActionSubscriber
 {
-    private $em;
-    private $manager;
-
-    public function __construct(EntityManager $em, ActionManagerInterface $manager)
-    {
-        $this->em = $em;
-        $this->manager = $manager;
-    }
-
     public function postLoad(LifecycleEventArgs $eventArgs)
     {
         $action = $eventArgs->getEntity();
@@ -28,7 +19,7 @@ class ActionSubscriber
             $targetReflProp = $metadata->reflClass->getProperty('target');
             $targetReflProp->setAccessible(true);
             $targetReflProp->setValue(
-                $action, $this->em->getReference($action->getTargetType(), $action->getTargetId())
+                $action, $em->getReference($action->getTargetType(), $action->getTargetId())
             );
         }
     }

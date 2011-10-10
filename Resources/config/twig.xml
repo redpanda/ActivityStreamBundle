@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="activity_stream.twig.extension.action.class">Bundle\ActivityStreamBundle\Twig\Extension\ActionExtension</parameter>
+        <parameter key="activity_stream.twig.extension.action.class">Redpanda\Bundle\ActivityStreamBundle\Twig\Extension\ActionExtension</parameter>
     </parameters>
 
     <services>

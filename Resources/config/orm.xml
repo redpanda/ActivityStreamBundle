@@ -5,22 +5,21 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-    	<parameter key="activity_stream.model.action.class">Bundle\ActivityStreamBundle\Entity\Action</parameter>
-        <parameter key="activity_stream.action_manager.class">Bundle\ActivityStreamBundle\Entity\ActionManager</parameter>
-        <parameter key="activity_stream.doctrine.action_subscriber.class">Bundle\ActivityStreamBundle\Doctrine\Event\ActionSubscriber</parameter>
+    	<parameter key="activity_stream.model.action.class">Redpanda\Bundle\ActivityStreamBundle\Entity\Action</parameter>
+        <parameter key="activity_stream.action_manager.class">Redpanda\Bundle\ActivityStreamBundle\Entity\ActionManager</parameter>
+        <parameter key="activity_stream.doctrine.action_subscriber.class">Redpanda\Bundle\ActivityStreamBundle\Doctrine\Event\ActionSubscriber</parameter>
     </parameters>
 
     <services>
         <service id="activity_stream.action_manager" class="%activity_stream.action_manager.class%">
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%activity_stream.model.action.class%</argument>
             <argument type="service" id="security.context" />
         </service>
         
         <service id="activity_stream.doctrine.action_subscriber" class="%activity_stream.doctrine.action_subscriber.class%">
             <tag name="doctrine.event_listener" event="postLoad" />
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument type="service" id="activity_stream.action_manager" />
+            <!--<argument type="service" id="activity_stream.action_manager" />-->
         </service>
     </services>
 

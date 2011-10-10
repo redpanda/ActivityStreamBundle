@@ -14,9 +14,6 @@ class RedpandaActivityStreamExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        print_r($config);
-        die();
-
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         
         // ensure the db_driver is configured
