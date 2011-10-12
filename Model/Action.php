@@ -29,9 +29,8 @@ namespace Redpanda\Bundle\ActivityStreamBundle\Model;
  */
 
 use DateTime;
-use Gedmo\Timestampable\Timestampable;
 
-abstract class Action implements ActionInterface, Timestampable
+abstract class Action implements ActionInterface
 {
     protected $id;
     protected $actorId;
@@ -47,8 +46,6 @@ abstract class Action implements ActionInterface, Timestampable
     
     /**
      * @var datetime
-     *
-     * @gedmo:Timestampable(on="create")
      */
     protected $createdAt;
 
