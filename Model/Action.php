@@ -1,5 +1,5 @@
 <?php
-namespace Bundle\ActivityStreamBundle\Model;
+namespace Redpanda\Bundle\ActivityStreamBundle\Model;
 
 /**
  * Action model describing the actor acting out a verb (on an optional target). 

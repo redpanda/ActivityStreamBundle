@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\ActivityStreamBundle\Entity;
+namespace Redpanda\Bundle\ActivityStreamBundle\Entity;
 
-use Bundle\ActivityStreamBundle\Model\Action as AbstractAction;
+use Redpanda\Bundle\ActivityStreamBundle\Model\Action as AbstractAction;
 
 class Action extends AbstractAction
 {

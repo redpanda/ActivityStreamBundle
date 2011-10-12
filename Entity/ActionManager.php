@@ -1,8 +1,8 @@
 <?php
-namespace Bundle\ActivityStreamBundle\Entity;
+namespace Redpanda\Bundle\ActivityStreamBundle\Entity;
 
-use Bundle\ActivityStreamBundle\Model\ActionInterface;
-use Bundle\ActivityStreamBundle\Model\ActionManager as BaseActionManager;
+use Redpanda\Bundle\ActivityStreamBundle\Model\ActionInterface;
+use Redpanda\Bundle\ActivityStreamBundle\Model\ActionManager as BaseActionManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Component\Security\Core\SecurityContext;

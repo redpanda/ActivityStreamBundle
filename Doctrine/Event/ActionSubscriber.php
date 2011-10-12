@@ -1,22 +1,13 @@
 <?php
-namespace Bundle\ActivityStreamBundle\Doctrine\Event;
+namespace Redpanda\Bundle\ActivityStreamBundle\Doctrine\Event;
 
-use Bundle\ActivityStreamBundle\Model\ActionManagerInterface;
+use Redpanda\Bundle\ActivityStreamBundle\Model\ActionManagerInterface;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class ActionSubscriber
 {
-    private $em;
-    private $manager;
-
-    public function __construct(EntityManager $em, ActionManagerInterface $manager)
-    {
-        $this->em = $em;
-        $this->manager = $manager;
-    }
-
     public function postLoad(LifecycleEventArgs $eventArgs)
     {
         $action = $eventArgs->getEntity();
@@ -24,12 +15,26 @@ class ActionSubscriber
         $em = $eventArgs->getEntityManager();
         $metadata = $em->getClassMetadata($className);
 
-        if ($metadata->reflClass->implementsInterface('Bundle\ActivityStreamBundle\Model\ActionInterface')) {
+        if ($metadata->reflClass->implementsInterface('Redpanda\Bundle\ActivityStreamBundle\Model\ActionInterface')) {
             $targetReflProp = $metadata->reflClass->getProperty('target');
             $targetReflProp->setAccessible(true);
             $targetReflProp->setValue(
-                $action, $this->em->getReference($action->getTargetType(), $action->getTargetId())
+                $action, $em->getReference($action->getTargetType(), $action->getTargetId())
             );
+
+            $actorReflProp = $metadata->reflClass->getProperty('actor');
+            $actorReflProp->setAccessible(true);
+            $actorReflProp->setValue(
+                $action, $em->getReference($action->getActorType(), $action->getActorId())
+            );
+
+            if (null !== $action->getActionObjectType()) {
+                $actionObjReflProp = $metadata->reflClass->getProperty('actionObject');
+                $actionObjReflProp->setAccessible(true);
+                $actionObjReflProp->setValue(
+                    $action, $em->getReference($action->getActionObjectType(), $action->getActionObjectId())
+                );
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Bundle\ActivityStreamBundle\Model;
+namespace Redpanda\Bundle\ActivityStreamBundle\Model;
 
 use FOS\UserBundle\Model\UserInterface;
 
