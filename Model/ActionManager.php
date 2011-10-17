@@ -46,8 +46,7 @@ abstract class ActionManager implements ActionManagerInterface
     
     public function send($verb, StreamableInterface $target = null, $actionObject = null)
     {
-        $class = $this->getClass();
-        $action = new $class();
+        $action = $this->createAction();
 
         $action->setVerb($verb);
 
@@ -67,8 +66,7 @@ abstract class ActionManager implements ActionManagerInterface
         if (null !== $actionObject) {
             $action->setActionObject($actionObject);
         }
-        
-        $this->em->persist($action);
-        $this->em->flush();
+
+        $this->updateAction($action);
     }
 }

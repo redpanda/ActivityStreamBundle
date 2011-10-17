@@ -47,4 +47,12 @@ class ActionManager extends BaseActionManager
     {
         return $this->repository->findBy($criteria);
     }
+
+    public function updateAction(ActionInterface $action, $andFlush = true)
+    {
+        $this->em->persist($action);
+        if ($andFlush) {
+            $this->em->flush();
+        }
+    }
 }
