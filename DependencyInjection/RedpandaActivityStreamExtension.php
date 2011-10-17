@@ -21,13 +21,16 @@ class RedpandaActivityStreamExtension extends Extension
             throw new \InvalidArgumentException('The db_driver parameter must be defined.');
         }
 
+        // Load action target, actor, and actionObject resolvers
+        $loader->load('resolver.xml');
+
         if (isset($config['db_driver'])){
             if (!in_array(strtolower($config['db_driver']), array('orm', 'mongodb'))) {
                 throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
             }
             $loader->load(sprintf('%s.xml', $config['db_driver']));
         }
-        
+
         $loader->load('twig.xml');
     }
 }

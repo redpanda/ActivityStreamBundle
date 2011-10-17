@@ -8,6 +8,7 @@
     	<parameter key="activity_stream.model.action.class">Redpanda\Bundle\ActivityStreamBundle\Entity\Action</parameter>
         <parameter key="activity_stream.action_manager.class">Redpanda\Bundle\ActivityStreamBundle\Entity\ActionManager</parameter>
         <parameter key="activity_stream.doctrine.action_subscriber.class">Redpanda\Bundle\ActivityStreamBundle\Doctrine\Event\ActionSubscriber</parameter>
+    	<parameter key="activity_stream.doctrine.entity_resolver.class">Redpanda\Bundle\ActivityStreamBundle\Streamable\Resolver\DoctrineEntityResolver</parameter>
     </parameters>
 
     <services>
@@ -19,7 +20,11 @@
         
         <service id="activity_stream.doctrine.action_subscriber" class="%activity_stream.doctrine.action_subscriber.class%">
             <tag name="doctrine.event_listener" event="postLoad" />
-            <!--<argument type="service" id="activity_stream.action_manager" />-->
+            <argument type="service" id="activity_stream.resolver.chain" />
+        </service>
+
+        <service id="activity_stream.doctrine.entity_resolver" class="%activity_stream.doctrine.entity_resolver.class%">
+            <tag name="activity_stream.resolver" />
         </service>
     </services>
 
