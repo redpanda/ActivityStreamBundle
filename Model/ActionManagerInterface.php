@@ -8,11 +8,11 @@ interface ActionManagerInterface
 {
     function createAction();
     
-    function findStreamBy(array $criteria);
+    function findStreamBy(array $criteria, array $orderBy = null, $limit = null, $offset = null);
     
-    function findStreamByActor($actor);
+    function findStreamByActor($actor, array $orderBy = null, $limit = null, $offset = null);
     
-    function findStreamByTarget($target);
+    function findStreamByTarget($target, array $orderBy = null, $limit = null, $offset = null);
 
     function updateAction(ActionInterface $action);
     
