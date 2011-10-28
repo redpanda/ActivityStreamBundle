@@ -31,17 +31,17 @@ abstract class ActionManager implements ActionManagerInterface
         return $action;
     }
     
-    public function findStreamByActor($actor)
+    public function findStreamByActor($actor, array $orderBy = null, $limit = null, $offset = null)
     {
-        return $this->findStreamBy(array('actorId' => $actor->getId()));
+        return $this->findStreamBy(array('actorId' => $actor->getId()), $orderBy, $limit, $offset);
     }
     
-    public function findStreamByTarget($target)
+    public function findStreamByTarget($target, array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->findStreamBy(array(
             'targetId'   => $target->getId(),
             'targetType' => get_class($target),
-        ));
+        ), $orderBy, $limit, $offset);
     }
     
     public function send($verb, StreamableInterface $target = null, $actionObject = null)

@@ -37,15 +37,15 @@ class ActionManager extends BaseActionManager
      */
     public function findOneStreamBy(array $criteria)
     {
-        $val = $this->repository->findOneBy($criteria);
+        return $this->repository->findOneBy($criteria);
     }
     
     /**
      * {@inheritDoc}
      */
-    public function findStreamBy(array $criteria)
+    public function findStreamBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        return $this->repository->findBy($criteria);
+        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
     }
 
     public function updateAction(ActionInterface $action, $andFlush = true)
