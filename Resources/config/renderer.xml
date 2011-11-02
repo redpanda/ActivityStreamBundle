@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+    	<parameter key="activity_stream.renderer_provider.class">Redpanda\Bundle\ActivityStreamBundle\Streamable\Renderer\RendererProvider</parameter>
+    </parameters>
+
+    <services>
+        <service id="activity_stream.renderer_provider" class="%activity_stream.renderer_provider.class%">
+            <argument type="service" id="activity_stream.renderer.default" />
+        </service>
+
+        <service id="activity_stream.renderer.default" class="%activity_stream.renderer.default_class%" public="false" />
+    </services>
+
+</container>

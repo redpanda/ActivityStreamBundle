@@ -6,9 +6,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
+ * This class defines the configuration information for the bundle
  */
 class Configuration implements ConfigurationInterface
 {
@@ -20,13 +18,16 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('redpanda_activity_stream');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('db_driver')->defaultValue('orm')->end()
+                ->arrayNode('renderer')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('default_class')->defaultValue('Redpanda\Bundle\ActivityStreamBundle\Streamable\Renderer\DefaultRenderer')->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

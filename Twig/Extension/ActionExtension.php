@@ -22,38 +22,22 @@ class ActionExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'activity_stream_get_action' => new \Twig_Function_Method($this, 'renderAction', array(
-                'is_safe' => array('html'),
-            )),
-            'activity_stream_get_absolute_url' => new \Twig_Function_Method($this, 'renderUrl', array(
+            'activity_stream_render' => new \Twig_Function_Method($this, 'render', array(
                 'is_safe' => array('html'),
             )),
         );
     }
     
-    public function renderAction(ActionInterface $action, $template = null)
+    /**
+     * Returns the action html.
+     *
+     * @return array An array of global functions
+     */
+    public function render(ActionInterface $action)
     {
-        if (null === $template) {
-            $template = 'RedpandaActivityStreamBundle:Action:action.html.twig';
-        }
+        $renderer = $this->container->get('activity_stream.renderer_provider')->resolve($action);
         
-        return trim($this->container->get('templating')->render($template, array('action' => $action)));
-    }
-    
-    public function renderUrl($obj)
-    {
-        if ($obj instanceof StreamableInterface) {
-
-            $routeParams = $obj->getAbsolutePathParams();
-
-            if (!is_array($routeParams)) {
-                throw new \LogicException('The method %s must return an array');
-            }
-
-            if (isset($routeParams['route']) && isset($routeParams['parameters'])) {
-                return $this->container->get('router')->generate($routeParams['route'], $routeParams['parameters']);
-            }
-        }
+        return trim($this->container->get('templating')->render($renderer->getTemplate(), $renderer->getTemplateParams()));
     }
 
     /**
