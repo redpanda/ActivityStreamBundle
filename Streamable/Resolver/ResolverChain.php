@@ -63,7 +63,7 @@ class ResolverChain implements ResolverInterface
     public function resolve(LifecycleEventArgs $eventArgs, $type, $id)
     {
         foreach ($this->resolvers as $resolver) {
-            if ($this->supports($eventArgs, $type)) {
+            if ($resolver->supports($eventArgs, $type)) {
                 return $resolver->resolve($eventArgs, $type, $id);
             }
         }
